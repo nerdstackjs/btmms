@@ -6,12 +6,14 @@ import (
 	"crypto/subtle"
 	"encoding/json"
 	"fmt"
+	"github.com/gorilla/mux"
 	"io/ioutil"
 	"log"
 	"net/http"
 	"new-bus-management-backend/models"
 	"new-bus-management-backend/utils"
 	"os"
+	"strconv"
 	"strings"
 	"github.com/dgrijalva/jwt-go"
 )
@@ -167,5 +169,33 @@ var ResetPassword = http.HandlerFunc(func(w http.ResponseWriter, r *http.Request
 
 	resp := utils.Message(true, "success")
 	resp["data"] = raw
+	utils.Respond(w, resp)
+})
+
+
+
+var UpdateAccessPermissionController = http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+
+	params := mux.Vars(r)
+	id, _ := strconv.Atoi(params["id"])
+	reservation := &models.ProbaseTblUser{}
+
+	err := json.NewDecoder(r.Body).Decode(reservation)
+	if err != nil {
+		utils.Respond(w, utils.Message(false, "Error while decoding request body"))
+		return
+	}
+	resp := reservation.UpdateAccessPermission(uint(id))
+	utils.Respond(w, resp)
+})
+
+
+// GetReservationsController Function for retrieving reservation requests for the day
+var GetAllUserController = http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+
+	data := models.GetAllUsers()
+	resp := utils.Message(true, "success")
+	resp["data"] = data
+	log.Println(resp)
 	utils.Respond(w, resp)
 })

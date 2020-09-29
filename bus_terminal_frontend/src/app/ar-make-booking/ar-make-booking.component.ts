@@ -226,7 +226,7 @@ export class ArMakeBookingComponent implements OnInit {
         this.buses = this.busesFilter.filter(
           (o) =>
             !this.reservedBus.find(
-              (o2) => o.id === o2.bus_id && o2.status === 'A' && o2.reserved_time.split('T')[0] == arOperatingDate
+              (o2) => o.id === o2.bus_id && o2.reservation_status === 'A' && o2.reserved_time.split('T')[0] == arOperatingDate
             )
         );
       });
@@ -261,7 +261,7 @@ export class ArMakeBookingComponent implements OnInit {
 
     const reserv = {
       slot: this.f.slot.value,
-      status: this.status,
+      reservation_status: this.status,
       route: this.f.route.value,
       user_id: this._id,
       res_uuid: v4(),

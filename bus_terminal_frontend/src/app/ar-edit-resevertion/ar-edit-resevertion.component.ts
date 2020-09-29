@@ -225,7 +225,7 @@ export class ArEditResevertionComponent implements OnInit {
         this.buses = this.busesFilter.filter(
             (o) =>
                 !this.reservedBus.find(
-                    (o2) => o.id === o2.bus_id && o2.status === 'A' && o2.reserved_time.split('T')[0] === arOperatingDate
+                    (o2) => o.ID === o2.bus_id && o2.reservation_status === 'A' && o2.reserved_time.split('T')[0] === arOperatingDate
                 )
         );
 
@@ -235,13 +235,13 @@ export class ArEditResevertionComponent implements OnInit {
         this.selectedRole = this.selectedR.filter((x) => x.time === this.data.row.time &&
             x.reserved_time.split('T')[0] === this.data.row.reserved_date.split('T')[0] && x.slot === this.data.row.slot)[0];
 
-        console.log('BUSSES>>>>>', this.selectedR, this.selectedRole)
+        console.log('BUSSEShhh>>>>>', this.selectedR, this.selectedRole, this.data.row.reserved_date)
 
         this.bookingForm.get('route').setValue(this.selectedRole.route)
         this.bookingForm.get('bus').setValue(this.selectedRole.bus_id)
       });
 
-      console.log('Buses>>>>>', this.buses);
+      console.log('Buses>>>>>', this.bookingForm.controls.bus.value);
     });
   }
 

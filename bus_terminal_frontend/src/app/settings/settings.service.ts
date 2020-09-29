@@ -1,5 +1,6 @@
 import { Injectable } from "@angular/core";
 import { HttpClient, HttpHeaders } from "@angular/common/http";
+import {Observable} from 'rxjs';
 
 @Injectable({
   providedIn: "root",
@@ -13,6 +14,8 @@ export class SettingsService {
   private urlB = "/api/slots/charge";
   private urlP = "/api/penalty/time";
   private urlCP = "/api/auth/changepassword";
+  private urlAcc = "/api/access/permissions/";
+  private urlUsr = "/api/users";
 
   constructor(private http: HttpClient) {}
 
@@ -63,6 +66,17 @@ export class SettingsService {
     const urlCP = `${this.urlCP}`;
     const jsonStr = `{"username":"${username}","password":"${password}"}`;
     return await this.http.post(urlCP, jsonStr).toPromise().catch(this.handleError);
+  }
+
+
+  updatePermission(id: any, status: any): Observable<any> {
+    return this.http.put<any>(`${this.urlAcc}` + id, status);
+  }
+
+
+  async getUsers(): Promise<any> {
+    const url = `${this.urlUsr}`;
+    return await this.http.get(url).toPromise().catch(this.handleError);
   }
 
   // handler for error in URL

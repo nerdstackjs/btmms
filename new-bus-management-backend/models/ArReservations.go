@@ -14,7 +14,7 @@ type EdArReservation struct {
 	gorm.Model
 	Slot         string    `json:"slot"`
 	ResUuid      string    `json:"res_uuid"`
-	Status       string    `gorm:"default:'p'" json:"status"`
+	ReservationStatus             string    `gorm:"default:'p'" json:"reservation_status"`
 	Route        uint      `json:"route"`
 	UserId       uint      `json:"user_id"`
 	BusId        uint      `json:"bus_id"`
@@ -173,9 +173,9 @@ func ArGetReservationHistory() []*EdArResult {
 // Update Approve or reject reservation
 func (reservation *EdArReservation) ARUpdate(id string) map[string]interface{} {
 
-	db.Model(&reservation).Where("res_uuid = ?", id).Updates(EdArReservation{Status: reservation.Status, CancellationReason: reservation.CancellationReason, BusId: reservation.BusId, Route: reservation.Route})
+	db.Model(&reservation).Where("res_uuid = ?", id).Updates(EdArReservation{ReservationStatus: reservation.ReservationStatus, CancellationReason: reservation.CancellationReason, BusId: reservation.BusId, Route: reservation.Route})
 
-	log.Println(reservation.Status)
+	log.Println(reservation.ReservationStatus)
 
 	resp := utils.Message(true, "success")
 	resp["reservation"] = reservation

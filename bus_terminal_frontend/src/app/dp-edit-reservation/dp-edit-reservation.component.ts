@@ -132,7 +132,7 @@ export class DpEditReservationComponent implements OnInit {
         this.buses = this.busesFilter.filter(
           (o) =>
             !this.reservedBus.find(
-              (o2) => o.ID === o2.bus_id && o2.status === 'A' && o2.reserved_time.split('T')[0] === operatingDate
+              (o2) => o.ID === o2.bus_id && o2.reservation_status === 'A' && o2.reserved_time.split('T')[0] === operatingDate
             )
         );
 

@@ -83,6 +83,13 @@ export class LoginComponent implements OnInit {
             this.alertService.error("Invalid Username/Password");
             this.loading = false;
           }
+          else if (this.getFromLocalStrorage().status === 'suspended') {
+            localStorage.removeItem('currentUser');
+            console.log("Console Data>>> ", data);
+            this.error = "Suspended User"
+            this.alertService.error("Suspended User");
+            this.loading = false;
+          }
           else{
             this.router.navigate([this.returnUrl]);
           }

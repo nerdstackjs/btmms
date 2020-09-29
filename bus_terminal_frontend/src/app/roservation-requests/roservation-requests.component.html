@@ -224,12 +224,12 @@
                         Status
                       </th>
                       <td mat-cell *matCellDef="let element">
-                        <div *ngIf="element.status == 'A'">Approved</div>
-                        <div *ngIf="element.status == 'PC'">Pending Cancellation</div>
-                        <div *ngIf="element.status == 'P'">Pending Approval</div>
-                        <div *ngIf="element.status == 'C'">Cancelled</div>
-                        <div *ngIf="element.status == 'DL'">Delayed</div>
-                        <div *ngIf="element.status == 'D'">Departed</div>
+                        <div *ngIf="element.reservation_status == 'A'">Approved</div>
+                        <div *ngIf="element.reservation_status == 'PC'">Pending Cancellation</div>
+                        <div *ngIf="element.reservation_status == 'P'">Pending Approval</div>
+                        <div *ngIf="element.reservation_status == 'C'">Cancelled</div>
+                        <div *ngIf="element.reservation_status == 'DL'">Delayed</div>
+                        <div *ngIf="element.reservation_status == 'D'">Departed</div>
                       </td>
                     </ng-container>
 
@@ -281,13 +281,13 @@
                             Cancel Request
                           </button>
                           <button
-                            *ngIf="role === 'ADMIN'"
+                            *ngIf="role === 'ADMIN' && row.reservation_status === 'PC'"
                             (click)="confirmCancellationRequest(row)"
                             mat-menu-item
                           >
                             Confirm Cancellation Request
                           </button>
-                          <div *ngIf="row.status === 'P'">
+                          <div *ngIf="row.reservation_status === 'P'">
                             <button mat-menu-item (click)="approve(row)">Approve</button>
                           </div>
                           <button
@@ -481,12 +481,12 @@
                         Status
                       </th>
                       <td mat-cell *matCellDef="let element">
-                        <div *ngIf="element.status == 'A'">Approved</div>
-                        <div *ngIf="element.status == 'PC'">Pending Cancellation</div>
-                        <div *ngIf="element.status == 'P'">Pending Approval</div>
-                        <div *ngIf="element.status == 'C'">Cancelled</div>
-                        <div *ngIf="element.status == 'DL'">Delayed</div>
-                        <div *ngIf="element.status == 'D'">Departed</div>
+                        <div *ngIf="element.reservation_status == 'A'">Approved</div>
+                        <div *ngIf="element.reservation_status == 'PC'">Pending Cancellation</div>
+                        <div *ngIf="element.reservation_status == 'P'">Pending Approval</div>
+                        <div *ngIf="element.reservation_status == 'C'">Cancelled</div>
+                        <div *ngIf="element.reservation_status == 'DL'">Delayed</div>
+                        <div *ngIf="element.reservation_status == 'D'">Departed</div>
                       </td>
                     </ng-container>
 
@@ -544,7 +544,7 @@
                           >
                             Confirm Cancellation Request
                           </button>
-                          <div *ngIf="row.status === 'P'">
+                          <div *ngIf="row.reservation_status === 'P'">
                             <button mat-menu-item (click)="approve(row)">Approve</button>
                           </div>
                           <button
@@ -703,12 +703,12 @@
                         Status
                       </th>
                       <td mat-cell *matCellDef="let element">
-                        <div *ngIf="element.status == 'P'">Pending Approval</div>
-                        <div *ngIf="element.status == 'A'">Approved</div>
-                        <div *ngIf="element.status == 'PC'">Pending Cancellation</div>
-                        <div *ngIf="element.status == 'C'">Cancelled</div>
-                        <div *ngIf="element.status == 'DL'">Delayed</div>
-                        <div *ngIf="element.status == 'D'">Departed</div>
+                        <div *ngIf="element.reservation_status == 'P'">Pending Approval</div>
+                        <div *ngIf="element.reservation_status == 'A'">Approved</div>
+                        <div *ngIf="element.reservation_status == 'PC'">Pending Cancellation</div>
+                        <div *ngIf="element.reservation_status == 'C'">Cancelled</div>
+                        <div *ngIf="element.reservation_status == 'DL'">Delayed</div>
+                        <div *ngIf="element.reservation_status == 'D'">Departed</div>
                       </td>
                     </ng-container>
 
@@ -918,12 +918,12 @@
                         Status
                       </th>
                       <td mat-cell *matCellDef="let element">
-                        <div *ngIf="element.status == 'P'">Pending Approval</div>
-                        <div *ngIf="element.status == 'A'">Approved</div>
-                        <div *ngIf="element.status == 'PC'">Pending Cancellation</div>
-                        <div *ngIf="element.status == 'C'">Cancelled</div>
-                        <div *ngIf="element.status == 'DL'">Delayed</div>
-                        <div *ngIf="element.status == 'D'">Departed</div>
+                        <div *ngIf="element.reservation_status == 'P'">Pending Approval</div>
+                        <div *ngIf="element.reservation_status == 'A'">Approved</div>
+                        <div *ngIf="element.reservation_status == 'PC'">Pending Cancellation</div>
+                        <div *ngIf="element.reservation_status == 'C'">Cancelled</div>
+                        <div *ngIf="element.reservation_status == 'DL'">Delayed</div>
+                        <div *ngIf="element.reservation_status == 'D'">Departed</div>
                       </td>
                     </ng-container>
 

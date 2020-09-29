@@ -110,7 +110,7 @@ export class RejectComponent implements OnInit {
     }
     this.httpClient
       .put('/api/approve/reservations/requests/' + this.data.row.res_uuid, {
-        status: this.status,
+          reservation_status: this.status,
       })
       .subscribe(
         () => {

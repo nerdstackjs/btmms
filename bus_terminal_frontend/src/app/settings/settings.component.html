@@ -23,8 +23,22 @@
                     <a
                       mat-button
                       class="nav-link"
-                      href="#day"
+                      href="#users"
                       data-toggle="tab"
+                    >
+                      <i mat-icon class="material-icons">account_circle</i>
+                      Users
+                      <div class="ripple-container"></div>
+                    </a>
+                  </li>
+
+
+                  <li class="nav-item">
+                    <a
+                            mat-button
+                            class="nav-link"
+                            href="#day"
+                            data-toggle="tab"
                     >
                       <i mat-icon class="material-icons">calender_today</i>
                       Penalty Interval Settings
@@ -169,16 +183,157 @@
                 </div>
               </div>
 
+              <div class="tab-pane" id="users">
+<!--                <div class="row">-->
+<!--                  <div class="col-md-12">-->
+<!--                    <div class="row">-->
+<!--                      <div class="col-md-6">-->
+<!--                        <button-->
+<!--                          mat-icon-button-->
+<!--                          (click)="onOpenDueDialog()"-->
+<!--                          matTooltip="Create Due Time"-->
+<!--                          [matTooltipPosition]="'above'"-->
+<!--                        >-->
+<!--                          <i class="fa fa-plus mat-icon"></i>-->
+<!--                        </button>-->
+<!--                      </div>-->
+<!--                      <div class="col-md-6">-->
+<!--                        <mat-form-field>-->
+<!--                          <input-->
+<!--                            matInput-->
+<!--                            (keyup)="applyDueFilter($event.target.value)"-->
+<!--                            placeholder="Filter"-->
+<!--                          />-->
+<!--                        </mat-form-field>-->
+<!--                      </div>-->
+<!--                    </div>-->
+                    <div class="row">
+                      <div class="col-md-6">
+                        <mat-form-field>
+                          <input
+                                  matInput
+                                  (keyup)="applyUserFilter($event.target.value)"
+                                  placeholder="Filter"
+                          />
+                        </mat-form-field>
+                      </div>
+                    </div>
+
+                    <div class="mat-elevation-z8">
+                      <table
+                        class="table"
+                        mat-table
+                        [dataSource]="userDataSource"
+                        matSort
+                      >
+                        <!-- Destination Column -->
+<!--                        <ng-container matColumnDef="first_name">-->
+<!--                          <th mat-header-cell *matHeaderCellDef mat-sort-header>-->
+<!--                            First Name-->
+<!--                          </th>-->
+<!--                          <td mat-cell *matCellDef="let element">-->
+<!--                            {{ element.first_name }}-->
+<!--                          </td>-->
+<!--                        </ng-container>-->
+
+                        <!-- Day Column -->
+                        <ng-container matColumnDef="username">
+                          <th mat-header-cell *matHeaderCellDef mat-sort-header>
+                            Username
+                          </th>
+                          <td mat-cell *matCellDef="let element">
+                            {{ element.username }}
+                          </td>
+                        </ng-container>
+
+                        <ng-container matColumnDef="email">
+                          <th mat-header-cell *matHeaderCellDef mat-sort-header>
+                            Email
+                          </th>
+                          <td mat-cell *matCellDef="let element">
+                            {{ element.email }}
+                          </td>
+                        </ng-container>
+
+
+                        <ng-container matColumnDef="mobile">
+                          <th mat-header-cell *matHeaderCellDef mat-sort-header>
+                            Phone Number
+                          </th>
+                          <td mat-cell *matCellDef="let element">
+                            {{ element.mobile }}
+                          </td>
+                        </ng-container>
+
+                        <ng-container matColumnDef="status">
+                          <th mat-header-cell *matHeaderCellDef mat-sort-header>
+                            Status
+                          </th>
+                          <td mat-cell *matCellDef="let element">
+                            {{ element.status }}
+                          </td>
+                        </ng-container>
+
+                         <ng-container matColumnDef="action">
+                          <th mat-header-cell *matHeaderCellDef>Action</th>
+                          <td mat-cell *matCellDef="let row">
+                            <button *ngIf="row.status === 'active'"
+                              mat-raised-button
+                              matTooltip="Suspend User Access"
+                              aria-label="Button that displays a tooltip when focused or hovered over"
+                              class="btn btn-primary btn-link btn-sm btn-just-icon"
+                                    (click)="updateAccessPermission(row, 'suspended')"
+                            >
+                              <i class="material-icons">cancel</i>
+                            </button>
+
+                            <button *ngIf="row.status === 'suspended'"
+                                    mat-raised-button
+                                    matTooltip="Activate User Access"
+                                    aria-label="Button that displays a tooltip when focused or hovered over"
+                                    class="btn btn-primary btn-link btn-sm btn-just-icon"
+                                    (click)="updateAccessPermission(row, 'active')"
+                            >
+                              <i class="material-icons">cancel</i>
+                            </button>
+
+<!--                            <mat-menu #menu="matMenu">-->
+<!--                              <&#45;&#45; <button mat-menu-item (click)="approve(row)">Approve</button> &#45;&#45;-->
+<!--                              <button mat-menu-item> Reject</button>-->
+<!--                            </mat-menu>-->
+                          </td>
+                        </ng-container>
+
+                        <tr
+                          mat-header-row
+                          *matHeaderRowDef="displayedUserColumns"
+                        ></tr>
+                        <tr
+                          mat-row
+                          *matRowDef="let row; columns: displayedUserColumns"
+                        ></tr>
+                      </table>
+
+                      <mat-paginator
+                        #UserPaginator
+                        [pageSizeOptions]="[5, 10, 20]"
+                        showFirstLastButtons
+                      ></mat-paginator>
+                    </div>
+                  </div>
+
+
+
               <div class="tab-pane" id="day">
                 <div class="row">
                   <div class="col-md-12">
                     <div class="row">
                       <div class="col-md-6">
                         <button
-                          mat-icon-button
-                          (click)="onOpenDueDialog()"
-                          matTooltip="Create Due Time"
-                          [matTooltipPosition]="'above'"
+                                mat-icon-button
+                                (click)="onOpenDueDialog()"
+                                matTooltip="Create Due Time"
+                                [matTooltipPosition]="'above'"
                         >
                           <i class="fa fa-plus mat-icon"></i>
                         </button>
@@ -186,9 +341,9 @@
                       <div class="col-md-6">
                         <mat-form-field>
                           <input
-                            matInput
-                            (keyup)="applyDueFilter($event.target.value)"
-                            placeholder="Filter"
+                                  matInput
+                                  (keyup)="applyDueFilter($event.target.value)"
+                                  placeholder="Filter"
                           />
                         </mat-form-field>
                       </div>
@@ -198,13 +353,13 @@
                         <mat-form-field>
                           <mat-label>Select an option</mat-label>
                           <mat-select
-                            [(ngModel)]="selectedTime"
-                            (ngModelChange)="onDueChange($event)"
+                                  [(ngModel)]="selectedTime"
+                                  (ngModelChange)="onDueChange($event)"
                           >
                             <mat-option
-                              placeHolder="Select Time"
-                              *ngFor="let due of dueTime"
-                              [value]="due"
+                                    placeHolder="Select Time"
+                                    *ngFor="let due of dueTime"
+                                    [value]="due"
                             >
                               {{ due.due_time }}
                             </mat-option>
@@ -215,10 +370,10 @@
 
                     <div class="mat-elevation-z8">
                       <table
-                        class="table"
-                        mat-table
-                        [dataSource]="dataDueSource"
-                        matSort
+                              class="table"
+                              mat-table
+                              [dataSource]="dataDueSource"
+                              matSort
                       >
                         <!-- Destination Column -->
                         <ng-container matColumnDef="due_time">
@@ -270,19 +425,19 @@
                         </ng-container> -->
 
                         <tr
-                          mat-header-row
-                          *matHeaderRowDef="displayedDueColumns"
+                                mat-header-row
+                                *matHeaderRowDef="displayedDueColumns"
                         ></tr>
                         <tr
-                          mat-row
-                          *matRowDef="let row; columns: displayedDueColumns"
+                                mat-row
+                                *matRowDef="let row; columns: displayedDueColumns"
                         ></tr>
                       </table>
 
                       <mat-paginator
-                        #DuePaginator
-                        [pageSizeOptions]="[5, 10, 20]"
-                        showFirstLastButtons
+                              #DuePaginator
+                              [pageSizeOptions]="[5, 10, 20]"
+                              showFirstLastButtons
                       ></mat-paginator>
                     </div>
                   </div>
@@ -435,7 +590,7 @@
                     <mat-form-field>
                       <input
                         matInput
-                        (keyup)="applyFilter($event.target.value)"
+                        (keyup)="applySlotFilter($event.target.value)"
                         placeholder="Filter"
                       />
                     </mat-form-field>

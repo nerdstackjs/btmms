@@ -42,6 +42,7 @@ export class SettingsComponent implements OnInit {
 
   // Time formGroup
   timeForm: FormGroup;
+  users: any[] = [];
 
   submitted = false;
 
@@ -84,6 +85,18 @@ export class SettingsComponent implements OnInit {
   isChecked = "true";
   userItems: any;
   role: any;
+
+  displayedUserColumns: string[] = [
+    'username',
+    "email",
+    "mobile",
+    "status",
+    "action",
+  ];
+  userDataSource = new MatTableDataSource([]);
+
+  @ViewChild("UserPaginator") userPaginator: MatPaginator;
+  @ViewChild("UserSort") userSort: MatSort;
 
   public getFromLocalStrorage() {
     const users = JSON.parse(localStorage.getItem("currentUser"));
@@ -139,6 +152,8 @@ export class SettingsComponent implements OnInit {
       this.dataSource.paginator = this.paginator;
       this.dataSource.sort = this.sort;
     });
+
+    this.getUsers();
 
     this.settings.getDueTimes().then((res) => {
       this.dueTime = res.data;
@@ -402,5 +417,39 @@ export class SettingsComponent implements OnInit {
     }
     this.settings.updateDueTime(due.ID, { status: "Active" });
     this.settings.updateDueTime(due.ID, { status: "Active" });
+  }
+
+  getUsers() {
+    this.settings.getUsers().then((users) => {
+      this.users = users.data
+      this.userDataSource = new MatTableDataSource(users.data);
+      this.userDataSource.paginator = this.userPaginator;
+      this.userDataSource.sort = this.userSort;
+    })
+  }
+
+  applyUserFilter(filterValue: string) {
+    this.userDataSource.filter = filterValue.trim().toLowerCase();
+  }
+  
+  
+  updateAccessPermission(row, status) {
+    row.status = status;
+    this.settings.updatePermission(row.ID, row).subscribe((res) => {
+      this._snackBar.open("Successfully Created", null, {
+        duration: 1000,
+        horizontalPosition: "center",
+        panelClass: ["blue-snackbar"],
+        verticalPosition: "top",
+      });
+      this.getUsers();
+    },(error) => {
+          this._snackBar.open("Failed", null, {
+            duration: 2000,
+            horizontalPosition: "center",
+            panelClass: ["background-red"],
+            verticalPosition: "top",
+          });
+        });
   }
 }

@@ -239,7 +239,7 @@ export class RoservationRequestsComponent implements OnInit {
       this.dataSource.sort = this.sort;
     } else {
       this.filterDataSource = this.displayData.filter(
-        (x) => x.status === value
+        (x) => x.reservation_status === value
       );
       this.dataSource = new MatTableDataSource(this.filterDataSource);
       this.dataSource.paginator = this.paginator;
@@ -269,7 +269,7 @@ export class RoservationRequestsComponent implements OnInit {
       this.dataSourceAR.sort = this.sortAR;
     } else {
       this.filterDataSourceAR = this.displayDataAR.filter(
-          (x) => x.status === value
+          (x) => x.reservation_status === value
       );
       this.dataSourceAR = new MatTableDataSource(this.filterDataSourceAR);
       this.dataSourceAR.paginator = this.paginatorAR;
@@ -298,7 +298,7 @@ export class RoservationRequestsComponent implements OnInit {
             formatDate(this.from, 'yyy-MM-dd hh:mm:ss', 'en-US', '+0530') &&
           x.reserved_time <
             formatDate(this.to, 'yyy-MM-dd hh:mm:ss', 'en-US', '+0530') &&
-          x.status === this.rStatus
+          x.reservation_status === this.rStatus
       );
     } else {
       this.filterDataSource = this.displayData.filter(
@@ -330,7 +330,7 @@ export class RoservationRequestsComponent implements OnInit {
               formatDate(this.from, 'yyy-MM-dd hh:mm:ss', 'en-US', '+0530') &&
               x.reserved_time <
               formatDate(this.to, 'yyy-MM-dd hh:mm:ss', 'en-US', '+0530') &&
-              x.status === this.rStatus
+              x.reservation_status === this.rStatus
       );
     } else {
       this.filterDataSourceAR = this.displayDataAR.filter(
@@ -362,7 +362,7 @@ export class RoservationRequestsComponent implements OnInit {
       this.dataSourceHistory.sort = this.sortHistory;
     } else {
       this.filterDataSourceHistory = this.displayDataHistory.filter(
-        (x) => x.status === value
+        (x) => x.reservation_status === value
       );
       this.dataSourceHistory = new MatTableDataSource(
         this.filterDataSourceHistory
@@ -395,7 +395,7 @@ export class RoservationRequestsComponent implements OnInit {
       this.dataSourceHistoryAR.sort = this.sortHistoryAR;
     } else {
       this.filterDataSourceHistoryAR = this.displayDataHistoryAR.filter(
-          (x) => x.status === value
+          (x) => x.reservation_status === value
       );
       this.dataSourceHistoryAR = new MatTableDataSource(
           this.filterDataSourceHistoryAR
@@ -434,7 +434,7 @@ export class RoservationRequestsComponent implements OnInit {
               'en-US',
               '+0530'
             ) &&
-          x.status === this.rStatus
+          x.reservation_status === this.rStatus
         // &&
         // x.status === this.rStatus
       );
@@ -486,7 +486,7 @@ export class RoservationRequestsComponent implements OnInit {
                   'en-US',
                   '+0530'
               ) &&
-              x.status === this.rStatus
+              x.reservation_status === this.rStatus
           // &&
           // x.status === this.rStatus
       );

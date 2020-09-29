@@ -170,7 +170,7 @@ func GetLoadingFee(id string) []*EdPenaltyCharge {
 
 func GetAccumulatedPenalties(id uint) []*EdPenaltyResult {
 	result := make([]*EdPenaltyResult, 0)
-	err := GetDB().Table("ed_penalties").Where("bus_operator_id = ?", id).Select("ed_penalties.*,  probase_tbl_users.username, probase_tbl_buses.company, probase_tbl_buses.license_plate,  ed_penalty_types.penalty_type").Joins("left join probase_tbl_users on ed_penalties.bus_operator_id = probase_tbl_users.id").Joins("left join probase_tbl_buses on ed_penalties.bus_id=probase_tbl_buses.id").Joins("left join ed_penalty_types on ed_penalties.penalty_type_id=ed_penalty_types.id").Find(&result).Error
+	err := GetDB().Table("ed_penalties").Where("bus_operator_id = ?", id).Select("ed_penalties.*,  probase_tbl_users.username, probase_tbl_bus.company, probase_tbl_bus.license_plate,  ed_penalty_types.penalty_type").Joins("left join probase_tbl_users on ed_penalties.bus_operator_id = probase_tbl_users.id").Joins("left join probase_tbl_bus on ed_penalties.bus_id=probase_tbl_bus.id").Joins("left join ed_penalty_types on ed_penalties.penalty_type_id=ed_penalty_types.id").Find(&result).Error
 	log.Println(err)
 	if err != nil {
 		log.Println(err)

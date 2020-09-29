@@ -26,22 +26,23 @@ type Token struct {
 type ProbaseTblUser struct {
 	gorm.Model
 	//Id          uint    `json:"id" sql:"AUTO_INCREMENT" gorm:"primary_key"`
-	Username string `json:"username"`
-	Role string `json:"role"`
-	Email string `json:"email"`
-	Mobile string `json:"mobile"`
-	Password string `json:"password"`
-	Token string `json:"token"`
-	Uuid string `json:"uuid"`
-	Nrc string `json:"nrc"`
-	AccountStatus string `json:"account_status"`
-	OperatorRole string `json:"operator_role"`
-	Pin string `json:"pin"`
-	TmpPin string `json:"tmp_pin"`
-	Company string `json:"company"`
-	AccountType string `json:"account_type"`
-	AccountNumber string `json:"account_number"`
-	InsertedAt time.Time `json:"inserted_at"`
+	Username      string    `json:"username"`
+	Role          string    `json:"role"`
+	Email         string    `json:"email"`
+	Mobile        string    `json:"mobile"`
+	Password      string    `json:"password"`
+	Token         string    `json:"token"`
+	Uuid          string    `json:"uuid"`
+	Nrc           string    `json:"nrc"`
+	AccountStatus string    `json:"account_status"`
+	OperatorRole  string    `json:"operator_role"`
+	Pin           string    `json:"pin"`
+	TmpPin        string    `json:"tmp_pin"`
+	Company       string    `json:"company"`
+	AccountType   string    `json:"account_type"`
+	AccountNumber string    `json:"account_number"`
+	InsertedAt    time.Time `json:"inserted_at"`
+	Status        string `gorm:"default:'active'" json:"status"`
 }
 
 // Variables for regular expressions
@@ -146,6 +147,33 @@ func (account *ProbaseTblUser) Create() (map[string] interface{}) {
 	response["account"] = account
 	log.Println(response)
 	return response
+}
+
+
+func (probaseTblUser *ProbaseTblUser) UpdateAccessPermission(id uint) map[string]interface{} {
+
+	db.Model(&probaseTblUser).Where("id = ?", id).Updates(ProbaseTblUser{Status: probaseTblUser.Status})
+
+	log.Println(probaseTblUser.Status)
+
+	resp := utils.Message(true, "success")
+	resp["user_permission"] = probaseTblUser
+	log.Println(resp)
+	return resp
+}
+
+
+// GetLateCancellationTime function to get minutes before cancellation
+func GetAllUsers() []*ProbaseTblUser {
+	probaseTblUser := make([]*ProbaseTblUser, 0)
+	err := GetDB().Model(ProbaseTblUser{}).Find(&probaseTblUser).Error
+	log.Println(err)
+	if err != nil {
+		log.Println(err)
+		return nil
+	}
+
+	return probaseTblUser
 }
 
 

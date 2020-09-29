@@ -235,7 +235,7 @@ export class MakeBookingComponent implements OnInit {
         this.buses = this.busesFilter.filter(
           (o) =>
             !this.reservedBus.find(
-              (o2) => o.ID === o2.bus_id && o2.status === 'A' && o2.reserved_time.split('T')[0] === operatingDate
+              (o2) => o.ID === o2.bus_id && o2.reservation_status === 'A' && o2.reserved_time.split('T')[0] === operatingDate
             )
         );
 
@@ -288,7 +288,7 @@ export class MakeBookingComponent implements OnInit {
 
     const reserv: any = {
         slot: this.f.slot.value,
-        status: this.status,
+      reservation_status: this.status,
         route: this.f.route.value,
         user_id: this._id,
         res_uuid: v4(),
@@ -402,7 +402,7 @@ export class MakeBookingComponent implements OnInit {
             (data) => {},
             (error) => {}
           );
-          // this._location.back();
+          this._location.back();
           this._snackBar.open('Successfully Created', null, {
             duration: 1000,
             horizontalPosition: 'center',
