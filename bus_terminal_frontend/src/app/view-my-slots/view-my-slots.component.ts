@@ -14,6 +14,7 @@ import { AuthService } from "app/login/auth.service";
 import { Location, formatDate } from "@angular/common";
 import { CancelReservationComponent } from "../cancel-reservation/cancel-reservation.component";
 import * as moment from "moment";
+import {CancelArrivalReservationComponent} from '../cancel-arrival-reservation/cancel-arrival-reservation.component';
 
 @Component({
   selector: "app-view-my-slots",
@@ -101,7 +102,7 @@ export class ViewMySlotsComponent implements OnInit {
     const _id = this.userItems.ID;
 
     this.viewSlots.getList(_id).then((res) => {
-      console.log("MY SLOTS>>>>", res.data);
+      console.log("MY SLOTS>>>>", _id, res.data);
       this.displayData = res.data;
       this.filterDataSource = this.displayData;
       this.dataSource = new MatTableDataSource(this.displayData);
@@ -154,6 +155,19 @@ export class ViewMySlotsComponent implements OnInit {
     console.log("Row clicked: ", row);
   }
 
+
+  onOpenCancelArrivalDialog(row): void {
+    const dialogRef = this.dialog.open(CancelArrivalReservationComponent, {
+      width: "60%",
+      // height: "850",
+      data: { row },
+    });
+    dialogRef.afterClosed().subscribe((result) => {
+      row = result;
+    });
+    console.log("Row clicked: ", row);
+  }
+
   log(value: any) {
     // this.requests.getList().then((res) => {
     if (value === "All") {
@@ -180,6 +194,8 @@ export class ViewMySlotsComponent implements OnInit {
         this.rStatus = "DL";
       } else if (value === "D") {
         this.rStatus = "D";
+      } else if (value === "R") {
+        this.rStatus = "R";
       }
     }
     // });
